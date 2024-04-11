@@ -1,89 +1,68 @@
 jenkins:
   systemMessage: "Welcome to the Chocolatine-Powered Marvin Jenkins Instance."
 
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: chocolateen
+          name: "Hugo"
+          password: ${USER_CHOCOLATEEN_PASSWORD}
+        - id: vaugie_g
+          name: "Garance"
+          password: ${USER_VAUGIE_G_PASSWORD}
+        - id: i_dont_know
+          name: "Jeremy"
+          password: ${USER_I_DONT_KNOW_PASSWORD}
+        - id: nasso
+          name: "Nassim"
+          password: ${USER_NASSO_PASSWORD}
+
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+          - name: "admin"
+            description: "Marvin master"
+            permissions:
+            - "Overall/Administer"
+            assignments:
+              - "chocolateen"
+          - name: "ape"
+            description: "Pedagogical team member"
+            permissions:
+            - "Overall/Read"
+            - "Job/Build"
+            - "Job/Read"
+            - "Job/Workspace"
+            assignments:
+              - "vaugie_g"
+          - name: "gorilla"
+            description: "Group Obsessively Researching Innovation Linked to Learning and Accomplishment"
+            permissions:
+            - "Overall/Read"
+            - "Job/Build"
+            - "Job/Read"
+            - "Job/Create"
+            - "Job/Configure"
+            - "Job/Cancel"
+            - "Job/Delete"
+            - "Job/Move"
+            - "Job/Workspace"
+            assignments:
+              - "i_dont_know"
+          - name: "assist"
+            description: "Assistant"
+            permissions:
+            - "Overall/Read"
+            - "Job/Read"
+            - "Job/Workspace"
+            assignments:
+              - "nasso"
+
+jobs:
+  - file: ./job_dsl.groovy
+
 unclassified:
   location:
-    url: "http://jenkins.example.com/"
-
-folders:
-  - name: "Tools"
-    description: "Folder for miscellaneous tools"
-    displayName: "Tools"
-
-users:
-  - id: "chocolateen"
-    passwordEnvVariable: "USER_CHOCOLATEEN_PASSWORD"
-
-  - id: "vaugie_g"
-    passwordEnvVariable: "USER_VAUGIE_G_PASSWORD"
-
-  - id: "i_dont_know"
-    passwordEnvVariable: "USER_I_DONT_KNOW_PASSWORD"
-
-  - id: "nasso"
-    passwordEnvVariable: "USER_NASSO_PASSWORD"
-
-authorizationStrategy:
-  roleBasedAuthorizationStrategy:
-    roles:
-      globalRoles:
-        - name: "admin"
-          description: "Marvin master"
-          permissions:
-            - name: "Overall/Administer"
-              allow: true
-          assignedSIDs:
-            - "chocolateen"
-
-        - name: "ape"
-          description: "Pedagogical team member"
-          permissions:
-            - name: "hudson.model.Item.Build"
-              allow: true
-            - name: "hudson.model.Item.Workspace"
-              allow: true
-          assignedSIDs:
-            - "i_dont_know"
-
-        - name: "gorilla"
-          description: "Group Obsessively Researching Innovation Linked to Learning and Accomplishment"
-          permissions:
-            - name: "hudson.model.Item.Build"
-              allow: true
-            - name: "hudson.model.Item.Workspace"
-              allow: true
-            - name: "hudson.model.Item.Configure"
-              allow: true
-            - name: "hudson.model.Item.Create"
-              allow: true
-            - name: "hudson.model.Item.Delete"
-              allow: true
-            - name: "hudson.model.Item.Move"
-              allow: true
-            - name: "hudson.model.Item.Cancel"
-              allow: true
-          assignedSIDs:
-            - "vaugie_g"
-
-        - name: "assist"
-          description: "Assistant"
-          permissions:
-            - name: "hudson.model.Item.Read"
-              allow: true
-            - name: "hudson.model.Item.Workspace"
-              allow: true
-          assignedSIDs:
-            - "nasso"
-
-pluginUsage:
-  plugins:
-    - cloudbees-folder:6.15
-    - configuration-as-code:1.52
-    - credentials:2.3.3
-    - github:1.32.2
-    - instance-identity:2.5.0
-    - jobdsl:1.77
-    - script-security:1.78
-    - structs:1.23
-    - role-strategy:3.4.0
-    - ws-cleanup:0.39
+    url: http://localhost:8080/
