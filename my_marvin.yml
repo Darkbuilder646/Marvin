@@ -22,43 +22,47 @@ jenkins:
     roleBased:
       roles:
         global:
-          - name: "admin"
+          - entries:
+            - user: "chocolateen"
+            name: "admin"
             description: "Marvin master"
+            pattern: ".*"
             permissions:
-            - "Overall/Administer"
-            assignments:
-              - "chocolateen"
-          - name: "ape"
+              - "Overall/Administer"
+          - entries:
+            - user: "i_dont_know"
+            name: "ape"
             description: "Pedagogical team member"
+            pattern: ".*"
             permissions:
-            - "Overall/Read"
-            - "Job/Build"
-            - "Job/Read"
-            - "Job/Workspace"
-            assignments:
-              - "vaugie_g"
-          - name: "gorilla"
+              - "Job/Read"
+              - "Job/Build"
+              - "Job/Workspace"
+              - "Overall/Read"
+          - entries:
+            - user: "vaugie_g"
+            name: "gorilla"
             description: "Group Obsessively Researching Innovation Linked to Learning and Accomplishment"
+            pattern: ".*"
             permissions:
-            - "Overall/Read"
-            - "Job/Build"
-            - "Job/Read"
-            - "Job/Create"
-            - "Job/Configure"
-            - "Job/Cancel"
-            - "Job/Delete"
-            - "Job/Move"
-            - "Job/Workspace"
-            assignments:
-              - "i_dont_know"
-          - name: "assist"
+              - "Job/Read"
+              - "Job/Workspace"
+              - "Job/Cancel"
+              - "Job/Configure"
+              - "Job/Create"
+              - "Job/Delete"
+              - "Job/Move"
+              - "Job/Build"
+              - "Overall/Read"
+          - entries:
+            - user: "nasso"
+            name: "assist"
             description: "Assistant"
+            pattern: ".*"
             permissions:
-            - "Overall/Read"
-            - "Job/Read"
-            - "Job/Workspace"
-            assignments:
-              - "nasso"
+              - "Job/Read"
+              - "Job/Workspace"
+              - "Overall/Read"
 
 jobs:
   - file: ./job_dsl.groovy
